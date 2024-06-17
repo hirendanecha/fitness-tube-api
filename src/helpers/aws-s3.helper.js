@@ -25,7 +25,7 @@ exports.uploadFileToWasabi = async (file, key) => {
           } else {
             console.log("data location => ", data.Location);
             resolve(data.Location);
-            // fs.unlinkSync(file.path);
+            fs.unlinkSync(file.path);
           }
         });
       });
