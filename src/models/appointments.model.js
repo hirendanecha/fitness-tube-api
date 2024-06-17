@@ -70,7 +70,7 @@ Appointments.findAppointmentByDate = async (date) => {
 
 Appointments.getPractitionerAppointments = async (id) => {
   const query =
-    "select a.*,p.Username,p.FirstName,p.LastName,p.ProfilePicName from appointments as a left join profile as p on p.ID = a.profileId where a.isCancelled = 'N' and a.lawyerProfileId = ?";
+    "select a.*,p.Username,p.FirstName,p.LastName,p.ProfilePicName from appointments as a left join profile as p on p.ID = a.profileId where a.isCancelled = 'N' and a.trainerProfileId = ?";
   const values = [id];
   const appointmentList = await executeQuery(query, values);
   if (appointmentList) {
@@ -82,7 +82,7 @@ Appointments.getPractitionerAppointments = async (id) => {
 
 Appointments.getUserAppointments = async (id) => {
   const query =
-    "select a.*,p.Username,p.FirstName,p.LastName,p.ProfilePicName from appointments as a left join profile as p on p.ID = a.lawyerProfileId where a.isCancelled = 'N' and a.profileId = ?";
+    "select a.*,p.Username,p.FirstName,p.LastName,p.ProfilePicName from appointments as a left join profile as p on p.ID = a.trainerProfileId where a.isCancelled = 'N' and a.profileId = ?";
   const values = [id];
   const appointmentList = await executeQuery(query, values);
   if (appointmentList) {

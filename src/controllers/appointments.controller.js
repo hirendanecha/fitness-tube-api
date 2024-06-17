@@ -31,8 +31,8 @@ exports.createAppointment = async (req, res) => {
   const appointmentData = {
     appointmentDateTime: date,
     profileId: data.profileId,
-    lawyerProfileId: data.lawyerProfileId,
-    lawyerName: data.lawyerName,
+    trainerProfileId: data.trainerProfileId,
+    trainerName: data.trainerName,
   };
   const slug = req.body?.slug;
   if (appointmentData) {
@@ -47,7 +47,7 @@ exports.createAppointment = async (req, res) => {
       const id = await Appointments.createAppointments(appointmentData);
       const emailData = {
         profileId: appointmentData.profileId,
-        lawyerProfileId: appointmentData.lawyerProfileId,
+        trainerProfileId: appointmentData.trainerProfileId,
         topics: topics,
         slug: slug,
         date: moment(date).format("YYYY-MM-DDTHH:mm:ss[Z]"),
@@ -106,11 +106,11 @@ exports.changeAppointmentStatus = async (req, res) => {
     if (isUpdate) {
       await utils.cancelAppointmentNotificationMail(
         data.profileId,
-        data.lawyerName
+        data.trainerName
       );
       await utils.cancelAppointmentNotificationMail(
-        data.lawyerProfileId,
-        data.lawyerName
+        data.trainerProfileId,
+        data.trainerName
       );
       res.send({
         error: false,
