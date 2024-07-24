@@ -151,20 +151,21 @@ exports.communityApproveEmail = async (profileId, isApprove) => {
 };
 
 exports.sendAppointmentMailToUser = async (data) => {
+  console.log("sendAppointmentMailToUser", data);
   const query =
     "select u.Email,p.FirstName,p.LastName,p.Username from users as u left join profile as p on p.UserID = u.Id where p.ID =?";
   const values = [data.profileId];
   const [userData] = await this.executeQuery(query, values);
   const query1 =
     "select u.Email,p.FirstName,p.LastName,p.Username from users as u left join profile as p on p.UserID = u.Id where p.ID =?";
-  const values1 = [data.lawyerProfileId];
+  const values1 = [data.trainerProfileId];
   const [practitionerData] = await this.executeQuery(query1, values1);
   console.log("practitionerData", practitionerData);
   if (userData) {
     let name = `Hi ${userData.Username || userData.FirstName}`;
     let msg = "";
     msg = `You have a new request for a video call with ${
-      practitionerData.Username || practitionerData.FirstName
+      practitionerData?.Username || practitionerData?.FirstName
     }`;
     const date = data.date;
     const time = moment(data.date).format("hh:mm a");
